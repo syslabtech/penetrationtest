@@ -1,0 +1,109 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    artifact.spinnaker.io/location: ns-prod-app
+    artifact.spinnaker.io/name: pod-app-penetrationtest
+    artifact.spinnaker.io/type: kubernetes/deployment
+    artifact.spinnaker.io/version: ""
+    deployment.kubernetes.io/revision: "1"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"artifact.spinnaker.io/location":"ns-prod-app","artifact.spinnaker.io/name":"pod-app-penetrationtest","artifact.spinnaker.io/type":"kubernetes/deployment","artifact.spinnaker.io/version":"","moniker.spinnaker.io/application":"penetrationtest","moniker.spinnaker.io/cluster":"deployment pod-app-penetrationtest"},"labels":{"app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"penetrationtest"},"name":"pod-app-penetrationtest","namespace":"ns-prod-app"},"spec":{"selector":{"matchLabels":{"instance":"pod-penetrationtest"}},"strategy":{"rollingUpdate":{"maxSurge":1,"maxUnavailable":0},"type":"RollingUpdate"},"template":{"metadata":{"annotations":{"artifact.spinnaker.io/location":"ns-prod-app","artifact.spinnaker.io/name":"pod-app-penetrationtest","artifact.spinnaker.io/type":"kubernetes/deployment","artifact.spinnaker.io/version":"","moniker.spinnaker.io/application":"penetrationtest","moniker.spinnaker.io/cluster":"deployment pod-app-penetrationtest","sidecar.istio.io/inject":"true"},"labels":{"app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"penetrationtest","ca-access-es":"true","instance":"pod-penetrationtest","role":"pod-penetrationtest"}},"spec":{"affinity":{"podAntiAffinity":{"preferredDuringSchedulingIgnoredDuringExecution":[{"podAffinityTerm":{"labelSelector":{"matchExpressions":[{"key":"instance","operator":"In","values":["pod-penetrationtest"]}]},"topologyKey":"kubernetes.io/hostname"},"weight":100}]}},"containers":[{"env":[{"name":"NODE_ENV","value":"beta"},{"name":"PORT","value":"3000"},{"name":"ELASTIC_HOST","valueFrom":{"secretKeyRef":{"key":"elastic_host","name":"nu-conn-es"}}},{"name":"ELASTIC_HTTPAUTH","valueFrom":{"secretKeyRef":{"key":"elastic_httpauth","name":"nu-conn-es"}}}],"image":"gcr.io/mtpo-prod/penetrationtest-beta","imagePullPolicy":"IfNotPresent","name":"pod-penetrationtest","ports":[{"containerPort":3000}],"resources":{"requests":{"cpu":"10m","memory":"128Mi"}},"volumeMounts":[{"mountPath":"/etc/localtime","name":"tz-config"}]}],"imagePullSecrets":[{"name":"mtpo-prod-regsecret"}],"nodeSelector":{"allowcomputeworkload":"yes"},"volumes":[{"hostPath":{"path":"/usr/share/zoneinfo/US/Pacific"},"name":"tz-config"}]}}}}
+    moniker.spinnaker.io/application: penetrationtest
+    moniker.spinnaker.io/cluster: deployment pod-app-penetrationtest
+  creationTimestamp: "2022-09-01T07:48:53Z"
+  generation: 1
+  labels:
+    app.kubernetes.io/managed-by: spinnaker
+    app.kubernetes.io/name: penetrationtest
+  name: pod-app-penetrationtest
+  namespace: ns-prod-app
+  resourceVersion: "543563830"
+  uid: 06fad4d5-80e8-4a42-983d-b58e37fc230c
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      instance: pod-penetrationtest
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        artifact.spinnaker.io/location: ns-prod-app
+        artifact.spinnaker.io/name: pod-app-penetrationtest
+        artifact.spinnaker.io/type: kubernetes/deployment
+        artifact.spinnaker.io/version: ""
+        moniker.spinnaker.io/application: penetrationtest
+        moniker.spinnaker.io/cluster: deployment pod-app-penetrationtest
+        sidecar.istio.io/inject: "true"
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/managed-by: spinnaker
+        app.kubernetes.io/name: penetrationtest
+        ca-access-es: "true"
+        instance: pod-penetrationtest
+        role: pod-penetrationtest
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: instance
+                  operator: In
+                  values:
+                  - pod-penetrationtest
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+      containers:
+      - env:
+        - name: NODE_ENV
+          value: beta
+        - name: PORT
+          value: "3000"
+        - name: ELASTIC_HOST
+          valueFrom:
+            secretKeyRef:
+              key: elastic_host
+              name: nu-conn-es
+        - name: ELASTIC_HTTPAUTH
+          valueFrom:
+            secretKeyRef:
+              key: elastic_httpauth
+              name: nu-conn-es
+        image: gcr.io/mtpo-prod/penetrationtest-beta
+        imagePullPolicy: IfNotPresent
+        name: pod-penetrationtest
+        ports:
+        - containerPort: 3000
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 10m
+            memory: 128Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /etc/localtime
+          name: tz-config
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: mtpo-prod-regsecret
+      nodeSelector:
+        allowcomputeworkload: "yes"
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - hostPath:
+          path: /usr/share/zoneinfo/US/Pacific
+          type: ""
+        name: tz-config
