@@ -1,0 +1,114 @@
+{
+  "settings": {
+    "index": {
+      "routing": {
+        "allocation": {
+          "include": {
+            "_tier_preference": "data_content"
+          }
+        }
+      },
+      "refresh_interval": "1s",
+      "number_of_shards": "5",
+      "number_of_replicas": "2"
+    }
+  },
+  "mappings": {
+    "dynamic": "false",
+    "properties": {
+      "AlertItem": {
+        "properties": {
+          "Alert": {
+            "type": "keyword"
+          },
+          "CWEID": {
+            "type": "long"
+          },
+          "Desc": {
+            "type": "text"
+          },
+          "Item": {
+            "type": "nested",
+            "properties": {
+              "Confidence": {
+                "type": "keyword"
+              },
+              "Evidence": {
+                "type": "text"
+              },
+              "Method": {
+                "type": "keyword"
+              },
+              "URI": {
+                "type": "keyword"
+              }
+            }
+          },
+          "ItemCount": {
+            "type": "long"
+          },
+          "PluginID": {
+            "type": "long"
+          },
+          "Reference": {
+            "type": "text"
+          },
+          "RiskCode": {
+            "type": "long"
+          },
+          "RiskDesc": {
+            "type": "keyword"
+          },
+          "Solution": {
+            "type": "text"
+          },
+          "WASCID": {
+            "type": "long"
+          }
+        }
+      },
+      "By": {
+        "type": "keyword"
+      },
+      "Desc": {
+        "type": "text"
+      },
+      "For": {
+        "type": "keyword"
+      },
+      "Host": {
+        "type": "keyword"
+      },
+      "Name": {
+        "type": "keyword"
+      },
+      "ReportDate": {
+        "type": "text"
+      },
+      "ReportVersion": {
+        "type": "keyword"
+      },
+      "SSL": {
+        "type": "boolean"
+      },
+      "ScanDate": {
+        "type": "text"
+      },
+      "ScanVersion": {
+        "type": "keyword"
+      },
+      "Title": {
+        "type": "keyword"
+      },
+      "formattedReportDate": {
+        "type": "date"
+      },
+      "formattedScanDate": {
+        "type": "date"
+      },
+      "port": {
+        "type": "long"
+      }
+    }
+  }
+}
